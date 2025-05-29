@@ -30,7 +30,7 @@ const DonutChart: React.FC<DonutChartProps> = ({
     const outerRadius = radius; // Radio externo del gráfico actual
 
     const historicInnerRadius = outerRadius + 5; // Radio interno del gráfico histórico (mayor que el externo del actual)
-    const historicOuterRadius = historicInnerRadius + 20; // Radio externo del gráfico histórico
+    const historicOuterRadius = historicInnerRadius + 5; // Radio externo del gráfico histórico
 
     const svg = select(ref.current)
       .attr("width", width)
