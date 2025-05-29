@@ -25,16 +25,14 @@ const DonutChart: React.FC<DonutChartProps> = ({
   useEffect(() => {
     if (!ref.current) return;
 
-    const radius = Math.min(width-50, height-50) / 2;
+    const radius = Math.min(width - 50, height - 50) / 2;
     const innerRadius = radius - thickness; // Radio interno del gráfico actual
     const outerRadius = radius; // Radio externo del gráfico actual
 
     const historicInnerRadius = outerRadius + 5; // Radio interno del gráfico histórico (mayor que el externo del actual)
     const historicOuterRadius = historicInnerRadius + 5; // Radio externo del gráfico histórico
 
-    const svg = select(ref.current)
-      .attr("width", width)
-      .attr("height", height);
+    const svg = select(ref.current).attr("width", width).attr("height", height);
 
     const arcGenerator = arc()
       .innerRadius(innerRadius)
@@ -99,7 +97,7 @@ const DonutChart: React.FC<DonutChartProps> = ({
 
     historicArc
       .transition()
-      .duration(1000)
+      .duration(3000)
       .attrTween("d", function (d) {
         const interpolateStart = interpolateNumber(0, d.endAngle);
         return function (t) {
@@ -116,6 +114,14 @@ const DonutChart: React.FC<DonutChartProps> = ({
       .style("font-weight", "bold")
       .style("fill", "#2e7d32") // también en verde oscuro
       .text(`${percentage}%`);
+    currentGroup
+      .append("text")
+      .attr("text-anchor", "middle")
+      .attr("dy", "2.2em")
+      .style("font-size", "14px")
+      .style("font-weight", "bold")
+      .style("fill", "lightblue") // también en verde oscuro
+      .text(`${historicPercentage}%`);
   }, [percentage, width, height, thickness, historicPercentage]);
 
   return <svg ref={ref}></svg>;
